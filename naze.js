@@ -86,12 +86,12 @@ module.exports = naze = async (naze, m, msg, store) => {
 		const text = q = args.join(' ')
 		const mime = (quoted.msg || quoted).mimetype || ''
 		const qmsg = (quoted.msg || quoted)
-		const author = db?.set?.[botNumber]?.author || 'Nazedev';
-		const packname = db?.set?.[botNumber]?.packname || 'Bot WhatsApp';
-		const hari = moment.tz('Asia/Jakarta').locale('id').format('dddd');
-		const tanggal = moment.tz('Asia/Jakarta').locale('id').format('DD/MM/YYYY');
-		const jam = moment.tz('Asia/Jakarta').locale('id').format('HH:mm:ss');
-		const ucapanWaktu = jam < '05:00:00' ? 'Selamat Pagi 🌉' : jam < '11:00:00' ? 'Selamat Pagi 🌄' : jam < '15:00:00' ? 'Selamat Siang 🏙' : jam < '18:00:00' ? 'Selamat Sore 🌅' : jam < '19:00:00' ? 'Selamat Sore 🌃' : jam < '23:59:00' ? 'Selamat Malam 🌌' : 'Selamat Malam 🌌';
+		const author = db?.set?.[botNumber]?.author || 'Yuki (雪)';
+		const packname = db?.set?.[botNumber]?.packname || 'WhatsApp Bot';
+		const hari = moment.tz('Africa/Casablanca').locale('id').format('dddd');
+		const tanggal = moment.tz('Africa/Casablanca').locale('id').format('DD/MM/YYYY');
+		const jam = moment.tz('Africa/Casablanca').locale('id').format('HH:mm:ss');
+		const ucapanWaktu = jam < '05:00:00' ? 'Good Morning 🌉' : jam < '11:00:00' ? 'Selamat Pagi 🌄' : jam < '15:00:00' ? 'Selamat Siang 🏙' : jam < '18:00:00' ? 'Selamat Sore 🌅' : jam < '19:00:00' ? 'Selamat Sore 🌃' : jam < '23:59:00' ? 'Selamat Malam 🌌' : 'Selamat Malam 🌌';
 		const almost = 0.72
 		const time = Date.now()
 		const time_now = new Date()
@@ -4588,3 +4588,4 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
