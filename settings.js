@@ -9,11 +9,11 @@ const chalk = require('chalk');
 
 //~~~~~~~~~~~~< GLOBAL SETTINGS >~~~~~~~~~~~~\\
 
-global.owner = ['6282113821188'] //['628','628'] 2 owner atau lebih
-global.author = 'Nazedev'
-global.botname = 'Hitori Bot'
-global.packname = 'Bot WhatsApp'
-global.listprefix = ['+','!','.']
+global.owner = ['212605158422'] //['628','628'] 2 owner atau lebih
+global.author = 'Aethon'
+global.botname = 'Yuki (雪)'
+global.packname = 'WhatsApp Bot'
+global.listprefix = ['/']
 
 /*
 - Setting Author, Packname, Botname sekarang pakai command
@@ -36,9 +36,9 @@ global.fake = {
 }
 
 global.my = {
-	yt: 'https://youtube.com/c/Nazedev',
-	gh: 'https://github.com/nazedev',
-	gc: 'https://chat.whatsapp.com/B5qJIwZHm4VEYZJQE6iMwy',
+	yt: 'https://youtube.com/@tdmsam?si=wm9j4CTZyH8LnTcZ',
+	gh: 'https://github.com/???',
+	gc: 'https://clik.now/NexusCommunity',
 	ch: '120363250409960161@newsletter',
 }
 
@@ -90,3 +90,4 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
