@@ -577,7 +577,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 				if (game.isCheckmate() || game.isDraw() || game.isGameOver()) {
 					const status = game.isCheckmate() ? 'Checkmate' : game.isDraw() ? 'Draw' : 'Game Over';
 					delete chess[m.sender];
-					return m.reply(`♟Game ${status}\nGame stopped.);
+					return m.reply(`♟Game ${status}\nGame stopped.`);
 				}
 				const [from, to] = budy.toLowerCase().split(' ');
 				if (!from || !to || from.length !== 2 || to.length !== 2) return m.reply('Wrong format! Use: e2 e4');
@@ -643,7 +643,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 					for (let url of boardUrls) {
 						try {
 							const { data } = await axios.get(url, { responseType: 'arraybuffer' });
-							let { key } = await m.reply({ image: data, caption: `♟️CHESS GAME\n\nGiliran: @${nextPlayer.split('@')[0]}\n\nReply Pesan Ini untuk lanjut bermain!\nExample: from to -> b1 c3`, mentions: [nextPlayer] });
+							let { key } = await m.reply({ image: data, caption: `♟️CHESS GAME\n\nTurn: @${nextPlayer.split('@')[0]}\n\nReply this message to continue playing!\nExample: from to -> b1 c3`, mentions: [nextPlayer] });
 							chess[m.chat].turn = nextPlayer
 							chess[m.chat].id = key.id;
 							break;
@@ -4588,6 +4588,7 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
 
 
 
