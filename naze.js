@@ -91,7 +91,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 		const hari = moment.tz('Africa/Casablanca').locale('id').format('dddd');
 		const tanggal = moment.tz('Africa/Casablanca').locale('id').format('DD/MM/YYYY');
 		const jam = moment.tz('Africa/Casablanca').locale('id').format('HH:mm:ss');
-		const ucapanWaktu = jam < '05:00:00' ? 'Good Morning 🌉' : jam < '11:00:00' ? 'Selamat Pagi 🌄' : jam < '15:00:00' ? 'Selamat Siang 🏙' : jam < '18:00:00' ? 'Selamat Sore 🌅' : jam < '19:00:00' ? 'Selamat Sore 🌃' : jam < '23:59:00' ? 'Selamat Malam 🌌' : 'Selamat Malam 🌌';
+		const ucapanWaktu = jam < '05:00:00' ? 'Good Early Morning 🌉' : jam < '11:00:00' ? 'Good morning 🌄' : jam < '15:00:00' ? 'Good Afternoon 🏙' : jam < '18:00:00' ? 'Good Late Afternoon 🌅' : jam < '19:00:00' ? 'Good evening 🌃' : jam < '23:59:00' ? 'Good night 🌌' : 'Good night 🌌';
 		const almost = 0.72
 		const time = Date.now()
 		const time_now = new Date()
@@ -210,7 +210,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 			// Anti Hidetag
 			if (!m.key.fromMe && m.mentionedJid?.length === m.metadata.participanis?.length && db.groups[m.chat].antihidetag && !isCreator && m.isBotAdmin && !m.isAdmin) {
 				await naze.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.id, participant: m.sender }})
-				await m.reply('*Anti Hidetag Sedang Aktif❗*')
+				await m.reply('*Anti Hidetag is Active❗*')
 			}
 			
 			// Anti Tag Sw
@@ -218,14 +218,14 @@ module.exports = naze = async (naze, m, msg, store) => {
 				if (m.type === 'groupStatusMentionMessage' || m.message?.groupStatusMentionMessage || m.message?.protocolMessage?.type === 25 || Object.keys(m.message).length === 1 && Object.keys(m.message)[0] === 'messageContextInfo') {
 					if (!db.groups[m.chat].tagsw[m.sender]) {
 						db.groups[m.chat].tagsw[m.sender] = 1
-						await m.reply(`Grup ini terdeteksi ditandai dalam Status WhatsApp\n@${m.sender.split('@')[0]}, mohon untuk tidak menandai grup dalam status WhatsApp\nPeringatan ${db.groups[m.chat].tagsw[m.sender]}/5, akan dikick sewaktu waktu❗`)
+						await m.reply(`This group was detected as tagged in WhatsApp Status\n@${m.sender.split('@')[0]}, Please do not tag groups in WhatsApp status.\nWarning ${db.groups[m.chat].tagsw[m.sender]}/5, will be kicked at any time❗`)
 					} else if (db.groups[m.chat].tagsw[m.sender] >= 5) {
-						await naze.groupParticipantsUpdate(m.chat, [m.sender], 'remove').catch((err) => m.reply('Gagal!'))
-						await m.reply(`@${m.sender.split("@")[0]} telah dikeluarkan dari grup\nKarena menandai grup dalam status WhatsApp sebanyak 5x`)
+						await naze.groupParticipantsUpdate(m.chat, [m.sender], 'remove').catch((err) => m.reply('Failed!'))
+						await m.reply(`@${m.sender.split("@")[0]} has been removed from the group\nBecause of tagging the group in WhatsApp status 5 times`)
 						delete db.groups[m.chat].tagsw[m.sender]
 					} else {
 						db.groups[m.chat].tagsw[m.sender] += 1
-						await m.reply(`Grup ini terdeteksi ditandai dalam Status WhatsApp\n@${m.sender.split('@')[0]}, mohon untuk tidak menandai grup dalam status WhatsApp\nPeringatan ${db.groups[m.chat].tagsw[m.sender]}/5, akan dikick sewaktu waktu❗`)
+						await m.reply(`This group was detected as tagged in WhatsApp Status\n@${m.sender.split('@')[0]}, Please do not tag groups in WhatsApp status.\nWarning ${db.groups[m.chat].tagsw[m.sender]}/5, will be kicked at any time❗`)
 					}
 				}
 			}
@@ -4588,4 +4588,5 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
 
