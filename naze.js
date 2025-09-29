@@ -178,7 +178,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 			}
 		}, {
 			scheduled: true,
-			timezone: 'Asia/Jakarta'
+			timezone: 'Africa/Casablanca'
 		});
 		
 		// Auto Set Bio
@@ -329,7 +329,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 		if (this.intervalSholat) clearInterval(this.intervalSholat); 
 		setTimeout(() => {
 			this.intervalSholat = setInterval(async() => {
-				const sekarang = moment.tz('Asia/Jakarta');
+				const sekarang = moment.tz('Africa/Casablanca');
 				const jamSholat = sekarang.format('HH:mm');
 				const hariIni = sekarang.format('YYYY-MM-DD');
 				const detik = sekarang.format('ss');
@@ -729,7 +729,7 @@ module.exports = naze = async (naze, m, msg, store) => {
 			let afkTime = user.afkTime
 			if (!afkTime || afkTime < 0) continue
 			let reason = user.afkReason || ''
-			m.reply(`Jangan tag dia!\nDia sedang AFK ${reason ? 'dengan alasan ' + reason : 'tanpa alasan'}\nSelama ${clockString(new Date - afkTime)}`.trim())
+			m.reply(`Don't tag him!\nHe is AFK ${reason ? 'dengan alasan ' + reason : 'tanpa alasan'}\nSelama ${clockString(new Date - afkTime)}`.trim())
 		}
 		if (db.users[m.sender].afkTime > -1) {
 			let user = db.users[m.sender]
@@ -4588,5 +4588,6 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
 
 
