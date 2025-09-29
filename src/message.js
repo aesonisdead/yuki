@@ -939,8 +939,8 @@ async function Serialize(naze, msg, store) {
 				if (/webp/i.test(m.quoted.mime)) {
 					m.quoted.isAnimated = m?.quoted?.msg?.isAnimated || false
 				}
-}
-m.quoted.fakeObj = proto.WebMessageInfo.create
+
+ m.quoted.fakeObj = proto.WebMessageInfo.create
   ? proto.WebMessageInfo.create({
       key: {
         remoteJid: m.quoted.chat,
@@ -1016,5 +1016,6 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
 
 
