@@ -36,9 +36,9 @@ global.fake = {
 }
 
 global.my = {
-	yt: 'https://youtube.com/@tdmsam?si=wm9j4CTZyH8LnTcZ',
-	gh: '-',
-	gc: 'https://clik.now/NexusCommunity',
+	yt: '',
+	gh: '',
+	gc: '',
 	ch: '120363250409960161@newsletter',
 }
 
@@ -55,14 +55,14 @@ global.money = {
 }
 
 global.mess = {
-	key: 'Apikey mu telah habis silahkan kunjungi\nhttps://my.hitori.pw',
-	owner: 'Fitur Khusus Owner!',
-	admin: 'Fitur Khusus Admin!',
-	botAdmin: 'Bot Bukan Admin!',
-	group: 'Gunakan Di Group!',
-	private: 'Gunakan Di Privat Chat!',
-	limit: 'Limit Anda Telah Habis!',
-	prem: 'Khusus User Premium!',
+	key: 'Your apikey has expired!',
+	owner: 'Owner Special Features!',
+	admin: 'Admin Special Features!',
+	botAdmin: 'Bot Is Not An Admin!',
+	group: 'Group Only!',
+	private: 'Use In Private Chat!',
+	limit: 'Your Limit Has Expired!',
+	prem: 'Premium Users Only!',
 	wait: 'Loading...',
 	error: 'Error!',
 	done: 'Done'
@@ -78,7 +78,7 @@ global.APIKeys = {
 
 // Lainnya
 
-global.badWords = ['tolol','goblok','asu','pantek','kampret','ngentot','jancok','kontol','memek','lonte']
+global.badWords = ['stupid', 'idiot', 'asu', 'pantek', 'bat', 'fuck', 'jancok', 'dick', 'pussy', 'whore']
 global.chatLength = 1000
 
 //~~~~~~~~~~~~~~~< PROCESS >~~~~~~~~~~~~~~~\\
@@ -90,5 +90,6 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
 
 
