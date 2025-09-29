@@ -939,26 +939,38 @@ async function Serialize(naze, msg, store) {
 				if (/webp/i.test(m.quoted.mime)) {
 					m.quoted.isAnimated = m?.quoted?.msg?.isAnimated || false
 				}
-			}
-			m.quoted.fakeObj = proto.WebMessageInfo.fromObject({
-				key: {
-					remoteJid: m.quoted.chat,
-					fromMe: m.quoted.fromMe,
-					id: m.quoted.id
-				},
-				message: m.quoted,
-				...(m.isGroup ? { participant: m.quoted.sender } : {})
-			})
-			m.quoted.download = () => naze.downloadMediaMessage(m.quoted)
-			m.quoted.delete = () => {
-				naze.sendMessage(m.quoted.chat, {
-					delete: {
-						remoteJid: m.quoted.chat,
-						fromMe: m.isBotAdmins ? false : true,
-						id: m.quoted.id,
-						participant: m.quoted.sender
-					}
-				})
+}
+m.quoted.fakeObj = proto.WebMessageInfo.create
+  ? proto.WebMessageInfo.create({
+      key: {
+        remoteJid: m.quoted.chat,
+        fromMe: m.quoted.fromMe,
+        id: m.quoted.id
+      },
+      message: m.quoted,
+      ...(m.isGroup ? { participant: m.quoted.sender } : {})
+    })
+  : {
+      key: {
+        remoteJid: m.quoted.chat,
+        fromMe: m.quoted.fromMe,
+        id: m.quoted.id
+      },
+      message: m.quoted,
+      ...(m.isGroup ? { participant: m.quoted.sender } : {})
+    }
+
+m.quoted.download = () => naze.downloadMediaMessage(m.quoted)
+m.quoted.delete = () => {
+  naze.sendMessage(m.quoted.chat, {
+    delete: {
+      remoteJid: m.quoted.chat,
+      fromMe: m.isBotAdmins ? false : true,
+      id: m.quoted.id,
+      participant: m.quoted.sender
+    }
+  })
+}
 			}
 		}
 	}
@@ -1004,4 +1016,5 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
 
