@@ -26,18 +26,18 @@ async function GroupUpdate(naze, m, store) {
 		const metadata = store.groupMetadata[m.chat];
 		const normalizedTarget = m.messageStubParameters[0]
 		const messages = {
-			1: 'mereset link grup!',
-			21: `mengubah Subject Grup menjadi :\n*${normalizedTarget}*`,
-			22: 'telah mengubah icon grup.',
-			23: 'mereset link grup!',
-			24: `mengubah deskripsi grup.\n\n${normalizedTarget}`,
-			25: `telah mengatur agar *${normalizedTarget == 'on' ? 'hanya admin' : 'semua peserta'}* yang dapat mengedit info grup.`,
-			26: `telah *${normalizedTarget == 'on' ? 'menutup' : 'membuka'}* grup!\nSekarang ${normalizedTarget == 'on' ? 'hanya admin yang' : 'semua peserta'} dapat mengirim pesan.`,
-			29: `telah menjadikan @${normalizedTarget?.split('@')?.[0]} sebagai admin.`,
-			30: `telah memberhentikan @${normalizedTarget?.split('@')?.[0]} dari admin.`,
-			72: `mengubah durasi pesan sementara menjadi *@${normalizedTarget}*`,
-			123: 'menonaktifkan pesan sementara.',
-			132: 'mereset link grup!',
+			1: 'group link reseted!',
+			21: `changed the group name to :\n*${normalizedTarget}*`,
+			22: 'changed the group icon.',
+			23: 'group link reseted!',
+			24: `changed the group description.\n\n${normalizedTarget}`,
+			25: `has arranged for *${normalizedTarget == 'on' ? 'admin only' : 'all participants'}* who can edit group info.`,
+			26: `has *${normalizedTarget == 'on' ? 'close' : 'open'}* group!\nNow ${normalizedTarget == 'on' ? 'only admin' : 'all participants'} can send messages.`,
+			29: `has made @${normalizedTarget?.split('@')?.[0]} as an admin.`,
+			30: `has terminated @${normalizedTarget?.split('@')?.[0]} from admin.`,
+			72: `changed the temporary message duration to *@${normalizedTarget}*`,
+			123: 'temporarily disable messages.',
+			132: 'reset group link!',
 		}
 		if (global.db?.groups?.[m.chat]?.setinfo && messages[m.messageStubType]) {
 			await naze.sendMessage(m.chat, { text: `${admin} ${messages[m.messageStubType]}`, mentions: [m.sender, ...(normalizedTarget?.includes('@') ? [`${normalizedTarget}`] : [])]}, { ephemeralExpiration: m.expiration || m?.metadata?.ephemeralDuration || store?.messages[m.chat]?.array?.slice(-1)[0]?.metadata?.ephemeralDuration || 0 })
@@ -155,10 +155,10 @@ async function LoadDataBase(naze, m) {
 			grouponly: true,
 			multiprefix: false,
 			privateonly: true,
-			author: global.author || 'Nazedev',
+			author: global.author || 'Aethon',
 			autobackup: false,
-			botname: global.botname || 'Hitori Bot',
-			packname: global.packname || 'Bot WhatsApp',
+			botname: global.botname || 'Yuki (雪)',
+			packname: global.packname || 'WhatsApp Bot',
 			template: 'documentMessage',
 			owner: global.owner.map(id => ({ id, lock: true })),
 		};
@@ -271,10 +271,10 @@ async function MessagesUpsert(naze, message, store) {
 		require('../naze')(naze, m, msg, store);
 		if (db?.set?.[botNumber]?.readsw && msg.key.remoteJid === 'status@broadcast') {
 			await naze.readMessages([msg.key]);
-			if (/protocolMessage/i.test(type)) await naze.sendFromOwner(global.db?.set?.[botNumber]?.owner?.map(x => x.id) || global.owner, 'Status dari @' + msg.key.participant.split('@')[0] + ' Telah dihapus', msg, { mentions: [msg.key.participant] });
+			if (/protocolMessage/i.test(type)) await naze.sendFromOwner(global.db?.set?.[botNumber]?.owner?.map(x => x.id) || global.owner, 'Status of @' + msg.key.participant.split('@')[0] + ' Has been deleted', msg, { mentions: [msg.key.participant] });
 			if (/(audioMessage|imageMessage|videoMessage|extendedTextMessage)/i.test(type)) {
-				let keke = (type == 'extendedTextMessage') ? `Story Teks Berisi : ${msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : ''}` : (type == 'imageMessage') ? `Story Gambar ${msg.message.imageMessage.caption ? 'dengan Caption : ' + msg.message.imageMessage.caption : ''}` : (type == 'videoMessage') ? `Story Video ${msg.message.videoMessage.caption ? 'dengan Caption : ' + msg.message.videoMessage.caption : ''}` : (type == 'audioMessage') ? 'Story Audio' : '\nTidak diketahui cek saja langsung'
-				await naze.sendFromOwner(global.db?.set?.[botNumber]?.owner?.map(x => x.id) || global.owner, `Melihat story dari @${msg.key.participant.split('@')[0]}\n${keke}`, msg, { mentions: [msg.key.participant] });
+				let keke = (type == 'extendedTextMessage') ? `Story Text Contains : ${msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : ''}` : (type == 'imageMessage') ? `Story Gambar ${msg.message.imageMessage.caption ? 'with Caption : ' + msg.message.imageMessage.caption : ''}` : (type == 'videoMessage') ? `Story Video ${msg.message.videoMessage.caption ? 'dengan Caption : ' + msg.message.videoMessage.caption : ''}` : (type == 'audioMessage') ? 'Story Audio' : '\nNot known, just check directly'
+				await naze.sendFromOwner(global.db?.set?.[botNumber]?.owner?.map(x => x.id) || global.owner, `View story from @${msg.key.participant.split('@')[0]}\n${keke}`, msg, { mentions: [msg.key.participant] });
 			}
 		}
 	} catch (e) {
@@ -321,7 +321,7 @@ async function Solving(naze, store) {
 		for (let i of kon) {
 			list.push({
 				displayName: await naze.getName(i + '@s.whatsapp.net'),
-				vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await naze.getName(i + '@s.whatsapp.net')}\nFN:${await naze.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.ADR:;;Indonesia;;;;\nitem2.X-ABLabel:Region\nEND:VCARD` //vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await naze.getName(i + '@s.whatsapp.net')}\nFN:${await naze.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:whatsapp@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://instagram.com/naze_dev\nitem3.X-ABLabel:Instagram\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+				vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await naze.getName(i + '@s.whatsapp.net')}\nFN:${await naze.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.ADR:;;Morocco;;;;\nitem2.X-ABLabel:Region\nEND:VCARD` //vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await naze.getName(i + '@s.whatsapp.net')}\nFN:${await naze.getName(i + '@s.whatsapp.net')}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Ponsel\nitem2.EMAIL;type=INTERNET:whatsapp@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://instagram.com/???\nitem3.X-ABLabel:Instagram\nitem4.ADR:;;Indonesia;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
 			})
 		}
 		naze.sendMessage(jid, { contacts: { displayName: `${list.length} Kontak`, contacts: list }, ...opts }, { quoted, ephemeralExpiration: quoted?.expiration || quoted?.metadata?.ephemeralDuration || store?.messages[jid]?.array?.slice(-1)[0]?.metadata?.ephemeralDuration || 0 });
@@ -1004,3 +1004,4 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
