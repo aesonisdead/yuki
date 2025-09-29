@@ -26,18 +26,18 @@ async function GroupUpdate(naze, m, store) {
 		const metadata = store.groupMetadata[m.chat];
 		const normalizedTarget = m.messageStubParameters[0]
 		const messages = {
-			1: 'mereset link grup!',
-			21: `mengubah Subject Grup menjadi :\n*${normalizedTarget}*`,
-			22: 'telah mengubah icon grup.',
-			23: 'mereset link grup!',
-			24: `mengubah deskripsi grup.\n\n${normalizedTarget}`,
-			25: `telah mengatur agar *${normalizedTarget == 'on' ? 'hanya admin' : 'semua peserta'}* yang dapat mengedit info grup.`,
-			26: `telah *${normalizedTarget == 'on' ? 'menutup' : 'membuka'}* grup!\nSekarang ${normalizedTarget == 'on' ? 'hanya admin yang' : 'semua peserta'} dapat mengirim pesan.`,
-			29: `telah menjadikan @${normalizedTarget?.split('@')?.[0]} sebagai admin.`,
-			30: `telah memberhentikan @${normalizedTarget?.split('@')?.[0]} dari admin.`,
-			72: `mengubah durasi pesan sementara menjadi *@${normalizedTarget}*`,
-			123: 'menonaktifkan pesan sementara.',
-			132: 'mereset link grup!',
+			1: 'reset group link!',
+			21: `changeed the group name to :\n*${normalizedTarget}*`,
+			22: 'changed the group icon.',
+			23: 'reset group link!',
+			24: `changed the group description.\n\n${normalizedTarget}`,
+			25: `has arranged for *${normalizedTarget == 'on' ? 'admin only' : 'all participants'}* who can edit group info.`,
+			26: `has *${normalizedTarget == 'on' ? 'close' : 'open'}* group!\nNow ${normalizedTarget == 'on' ? 'only admin' : 'all participants'} can send messages.`,
+			29: `has made @${normalizedTarget?.split('@')?.[0]} as an admin.`,
+			30: `has terminated @${normalizedTarget?.split('@')?.[0]} from admin.`,
+			72: `changed the temporary message duration to *@${normalizedTarget}*`,
+			123: 'temporarily disable messages.',
+			132: 'reset group link!',
 		}
 		if (global.db?.groups?.[m.chat]?.setinfo && messages[m.messageStubType]) {
 			await naze.sendMessage(m.chat, { text: `${admin} ${messages[m.messageStubType]}`, mentions: [m.sender, ...(normalizedTarget?.includes('@') ? [`${normalizedTarget}`] : [])]}, { ephemeralExpiration: m.expiration || m?.metadata?.ephemeralDuration || store?.messages[m.chat]?.array?.slice(-1)[0]?.metadata?.ephemeralDuration || 0 })
@@ -1004,3 +1004,4 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 });
+
